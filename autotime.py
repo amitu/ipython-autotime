@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import time
+import datetime
 from IPython.core.magics.execution import _format_time as format_delta
 
 
@@ -15,7 +16,8 @@ class LineWatcher(object):
 
     def __init__(self):
         self.start_time = 0.0
-
+        self.started_on = datetime.datetime.now()
+        
     def start(self):
         self.start_time = time.time()
 
@@ -23,7 +25,7 @@ class LineWatcher(object):
         if self.start_time:
             diff = time.time() - self.start_time
             assert diff > 0
-            print('time: %s' % format_delta(diff))
+            print('time: %s [on %s]' % (format_delta(diff), self.started_on))
 
 timer = LineWatcher()
 
